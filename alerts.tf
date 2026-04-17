@@ -53,7 +53,7 @@ module "cmc-pdf-fail-alert" {
 requests
 | where name startswith "POST"
 | join (exceptions
-| search "cmc-pdf-service"
+| where tostring(customDimensions) contains "cmc-pdf-service"
 | where customDimensions != ""
 | project operation_Id, dimensions=customDimensions) on operation_Id
 | project timestamp, operation_Id, url, name, dimensions
